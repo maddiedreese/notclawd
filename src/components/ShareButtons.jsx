@@ -23,7 +23,7 @@ async function copyToClipboard(text) {
 
 function getTerminalOneLiner(state) {
   const config = encodeState(state).slice(1);
-  return `curl -s ${SITE_DOMAIN}/t/${config} | bash`;
+  return `curl -sL ${SITE_DOMAIN}/t/${config} | bash`;
 }
 
 export default function ShareButtons({ state }) {

@@ -20,8 +20,13 @@ export default function ShareButtons({ state }) {
 
   const oneLiner = getTerminalOneLiner(state);
 
+  const getShareUrl = () => {
+    const config = encodeState(state).slice(1);
+    return `https://${SITE_DOMAIN}/c/${config}`;
+  };
+
   const shareToX = () => {
-    const url = window.location.href;
+    const url = getShareUrl();
     const text = encodeURIComponent("I made my Not Claw'd \uD83E\uDD94");
     window.open(
       `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(url)}`,
@@ -50,7 +55,7 @@ export default function ShareButtons({ state }) {
 
   const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(getShareUrl());
       showToast('Link copied!');
     } catch {
       showToast('Failed to copy');

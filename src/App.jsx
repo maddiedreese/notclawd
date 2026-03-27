@@ -4,8 +4,15 @@ import Customizer from './components/Customizer.jsx';
 import ShareButtons from './components/ShareButtons.jsx';
 import { encodeState, decodeHash } from './utils/hashCodec.js';
 
+function getInitialState() {
+  // Support both hash URLs (#FF6B4A-0-0-0-0-0) and path URLs (/c/FF6B4A-0-0-0-0-0)
+  const pathMatch = window.location.pathname.match(/^\/c\/(.+)$/);
+  if (pathMatch) return decodeHash(pathMatch[1]);
+  return decodeHash(window.location.hash);
+}
+
 export default function App() {
-  const [state, setState] = useState(() => decodeHash(window.location.hash));
+  const [state, setState] = useState(getInitialState);
 
   useEffect(() => {
     const onHashChange = () => setState(decodeHash(window.location.hash));
@@ -20,7 +27,10 @@ export default function App() {
 
   useEffect(() => {
     const config = encodeState(state).slice(1);
-    const ogUrl = `/.netlify/functions/og?config=${config}`;
+    const isDefault = config === 'FF6B4A-0-0-0-0-0';
+    const ogUrl = isDefault
+      ? 'https://notclawd.sh/og.png'
+      : `https://notclawd.sh/.netlify/functions/og?config=${config}`;
     document.querySelector('meta[property="og:image"]')?.setAttribute('content', ogUrl);
     document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', ogUrl);
   }, [state]);

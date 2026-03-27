@@ -4,3 +4,19 @@
 
 [functions]
   directory = "netlify/functions"
+
+# Serve the SPA for /c/:config share URLs
+[[redirects]]
+  from = "/c/*"
+  to = "/index.html"
+  status = 200
+
+# SPA fallback for all other routes
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[edge_functions]]
+  function = "og-rewrite"
+  path = "/c/*"

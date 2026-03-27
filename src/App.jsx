@@ -35,12 +35,24 @@ export default function App() {
     document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', ogUrl);
   }, [state]);
 
+  const config = encodeState(state).slice(1);
+  const oneLiner = `curl -sL notclawd.sh/t/${config} | bash`;
+
   return (
     <div className="app">
       <header>
         <h1 className="title">Not Claw'd</h1>
         <p className="tagline">definitely not official</p>
       </header>
+
+      <section className="intro">
+        <p className="intro-text">
+          Customize your Claw'd below, then paste this into your terminal to see it every time you open a shell:
+        </p>
+        <div className="intro-terminal">
+          <code>{oneLiner}</code>
+        </div>
+      </section>
 
       <main>
         <Preview state={state} />

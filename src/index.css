@@ -46,6 +46,35 @@ header {
   font-style: italic;
 }
 
+/* Intro */
+.intro {
+  text-align: center;
+  max-width: 640px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.intro-text {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.intro-terminal {
+  background: #111;
+  border: 1px solid #222;
+  padding: 10px 14px;
+  overflow-x: auto;
+}
+
+.intro-terminal code {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #4CAF50;
+  white-space: nowrap;
+}
+
 /* Main layout */
 main {
   display: flex;

@@ -1,10 +1,25 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { encodeState } from '../utils/hashCodec.js';
 import { renderToCanvas } from '../renderers/canvasRenderer.js';
-import { GRID_SIZE } from '../utils/constants.js';
 import Toast from './Toast.jsx';
 
 const SITE_DOMAIN = 'notclawd.sh';
+
+async function copyToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+  // Fallback for non-HTTPS / older browsers
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+}
 
 function getTerminalOneLiner(state) {
   const config = encodeState(state).slice(1);
@@ -36,7 +51,7 @@ export default function ShareButtons({ state }) {
 
   const copyTerminal = async () => {
     try {
-      await navigator.clipboard.writeText(oneLiner);
+      await copyToClipboard(oneLiner);
       showToast('Copied!');
     } catch {
       showToast('Failed to copy');
@@ -55,7 +70,7 @@ export default function ShareButtons({ state }) {
 
   const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(getShareUrl());
+      await copyToClipboard(getShareUrl());
       showToast('Link copied!');
     } catch {
       showToast('Failed to copy');

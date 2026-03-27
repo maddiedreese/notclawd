@@ -378,10 +378,10 @@ main {
 /* Footer */
 footer {
   margin-top: auto;
-  padding: 20px 0 12px;
+  padding: 24px 0 16px;
   text-align: center;
-  color: #444;
-  font-size: 11px;
+  color: #666;
+  font-size: 14px;
 }
 
 footer a {

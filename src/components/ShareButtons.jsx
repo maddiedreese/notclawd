@@ -42,7 +42,7 @@ export default function ShareButtons({ state }) {
 
   const shareToX = () => {
     const url = getShareUrl();
-    const text = encodeURIComponent("I made my Not Claw'd \uD83E\uDD94");
+    const text = encodeURIComponent("I made my Not Claw'd");
     window.open(
       `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(url)}`,
       '_blank'

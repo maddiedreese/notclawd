@@ -36,7 +36,8 @@ export default function App() {
   }, [state]);
 
   const config = encodeState(state).slice(1);
-  const oneLiner = `curl -sL notclawd.sh/t/${config} | bash`;
+  const curlCmd = `curl -sL notclawd.sh/t/${config} | bash`;
+  const echoCmd = `echo 'curl -sL notclawd.sh/t/${config} | bash' >> ~/.zshrc`;
 
   return (
     <div className="app">
@@ -47,10 +48,16 @@ export default function App() {
 
       <section className="intro">
         <p className="intro-text">
-          Customize your Claw'd below, then paste this into your terminal to see it every time you open a shell:
+          Customize your Claw'd below. Preview it in your terminal:
         </p>
         <div className="intro-terminal">
-          <code>{oneLiner}</code>
+          <code>{curlCmd}</code>
+        </div>
+        <p className="intro-text" style={{ marginTop: '10px' }}>
+          To see it every time you open a shell, run:
+        </p>
+        <div className="intro-terminal">
+          <code>{echoCmd}</code>
         </div>
       </section>
 

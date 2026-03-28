@@ -21,9 +21,9 @@ async function copyToClipboard(text) {
   document.body.removeChild(textarea);
 }
 
-function getTerminalOneLiner(state) {
+function getEchoCommand(state) {
   const config = encodeState(state).slice(1);
-  return `curl -sL ${SITE_DOMAIN}/t/${config} | bash`;
+  return `echo 'curl -sL ${SITE_DOMAIN}/t/${config} | bash' >> ~/.zshrc`;
 }
 
 export default function ShareButtons({ state }) {
@@ -33,7 +33,7 @@ export default function ShareButtons({ state }) {
     setToast(msg);
   }, []);
 
-  const oneLiner = getTerminalOneLiner(state);
+  const oneLiner = getEchoCommand(state);
 
   const getShareUrl = () => {
     const config = encodeState(state).slice(1);
